@@ -55,6 +55,27 @@ const MUSCLE_GROUPS: Record<PoseType, MuscleGroup[]> = {
       name: 'quads',
       color: '#8c5fd3',
       keypoints: ['right_hip', 'right_knee', 'right_ankle']
+    },
+    // Enhanced detailed muscle groups
+    {
+      name: 'deltoids',
+      color: '#5f87d3',
+      keypoints: ['left_shoulder', 'left_elbow', 'neck', 'left_ear']
+    },
+    {
+      name: 'deltoids',
+      color: '#5f87d3',
+      keypoints: ['right_shoulder', 'right_elbow', 'neck', 'right_ear']
+    },
+    {
+      name: 'serratus',
+      color: '#5fd3bc',
+      keypoints: ['left_shoulder', 'left_hip', 'left_elbow']
+    },
+    {
+      name: 'serratus',
+      color: '#5fd3bc',
+      keypoints: ['right_shoulder', 'right_hip', 'right_elbow']
     }
   ],
   [PoseType.FRONT_DOUBLE_BICEPS]: [
@@ -97,6 +118,37 @@ const MUSCLE_GROUPS: Record<PoseType, MuscleGroup[]> = {
       name: 'quads',
       color: '#8c5fd3',
       keypoints: ['right_hip', 'right_knee', 'right_ankle']
+    },
+    // Enhanced detailed muscle groups
+    {
+      name: 'forearms',
+      color: '#5fd3bc',
+      keypoints: ['left_elbow', 'left_wrist', 'left_index']
+    },
+    {
+      name: 'forearms',
+      color: '#5fd3bc',
+      keypoints: ['right_elbow', 'right_wrist', 'right_index']
+    },
+    {
+      name: 'deltoids',
+      color: '#5f87d3',
+      keypoints: ['left_shoulder', 'left_elbow', 'neck', 'left_ear']
+    },
+    {
+      name: 'deltoids',
+      color: '#5f87d3',
+      keypoints: ['right_shoulder', 'right_elbow', 'neck', 'right_ear']
+    },
+    {
+      name: 'serratus',
+      color: '#5fd3bc',
+      keypoints: ['left_shoulder', 'left_hip', 'left_elbow']
+    },
+    {
+      name: 'serratus',
+      color: '#5fd3bc',
+      keypoints: ['right_shoulder', 'right_hip', 'right_elbow']
     }
   ],
   [PoseType.SIDE_CHEST]: [
@@ -129,6 +181,27 @@ const MUSCLE_GROUPS: Record<PoseType, MuscleGroup[]> = {
       name: 'calves',
       color: '#d35f9c',
       keypoints: ['left_knee', 'left_ankle', 'left_foot_index']
+    },
+    // Enhanced detailed muscle groups
+    {
+      name: 'pecs',
+      color: '#d35f5f',
+      keypoints: ['left_shoulder', 'right_shoulder', 'right_hip', 'left_hip']
+    },
+    {
+      name: 'serratus',
+      color: '#5fd3bc',
+      keypoints: ['left_shoulder', 'left_hip', 'left_elbow']
+    },
+    {
+      name: 'obliques',
+      color: '#d3c15f',
+      keypoints: ['left_shoulder', 'left_hip', 'left_knee']
+    },
+    {
+      name: 'hamstrings',
+      color: '#8c5fd3',
+      keypoints: ['left_hip', 'left_knee', 'left_ankle']
     }
   ],
   [PoseType.BACK_DOUBLE_BICEPS]: [
@@ -181,6 +254,42 @@ const MUSCLE_GROUPS: Record<PoseType, MuscleGroup[]> = {
       name: 'hamstrings',
       color: '#d35f9c',
       keypoints: ['right_hip', 'right_knee', 'right_ankle']
+    },
+    // Enhanced detailed muscle groups
+    {
+      name: 'traps',
+      color: '#d35f5f',
+      keypoints: ['left_shoulder', 'right_shoulder', 'neck', 'left_ear', 'right_ear']
+    },
+    {
+      name: 'rear_delts',
+      color: '#5fd3bc',
+      keypoints: ['left_shoulder', 'left_elbow', 'neck']
+    },
+    {
+      name: 'rear_delts',
+      color: '#5fd3bc',
+      keypoints: ['right_shoulder', 'right_elbow', 'neck']
+    },
+    {
+      name: 'forearms',
+      color: '#d3c15f',
+      keypoints: ['left_elbow', 'left_wrist', 'left_index']
+    },
+    {
+      name: 'forearms',
+      color: '#d3c15f',
+      keypoints: ['right_elbow', 'right_wrist', 'right_index']
+    },
+    {
+      name: 'calves',
+      color: '#d35f9c',
+      keypoints: ['left_knee', 'left_ankle', 'left_foot_index']
+    },
+    {
+      name: 'calves',
+      color: '#d35f9c',
+      keypoints: ['right_knee', 'right_ankle', 'right_foot_index']
     }
   ],
   [PoseType.SIDE_TRICEPS]: [
@@ -213,6 +322,27 @@ const MUSCLE_GROUPS: Record<PoseType, MuscleGroup[]> = {
       name: 'hamstrings',
       color: '#d35f9c',
       keypoints: ['right_hip', 'right_knee', 'right_ankle']
+    },
+    // Enhanced detailed muscle groups
+    {
+      name: 'forearms',
+      color: '#5fd3bc',
+      keypoints: ['right_elbow', 'right_wrist', 'right_index']
+    },
+    {
+      name: 'deltoids',
+      color: '#5f87d3',
+      keypoints: ['right_shoulder', 'right_elbow', 'neck', 'right_ear']
+    },
+    {
+      name: 'obliques',
+      color: '#d3c15f',
+      keypoints: ['right_shoulder', 'right_hip', 'right_knee']
+    },
+    {
+      name: 'calves',
+      color: '#d35f9c',
+      keypoints: ['right_knee', 'right_ankle', 'right_foot_index']
     }
   ],
   [PoseType.ABDOMINAL_AND_THIGH]: [
@@ -255,6 +385,37 @@ const MUSCLE_GROUPS: Record<PoseType, MuscleGroup[]> = {
       name: 'adductors',
       color: '#d35f9c',
       keypoints: ['left_hip', 'right_hip', 'right_knee', 'left_knee']
+    },
+    // Enhanced detailed muscle groups
+    {
+      name: 'upper_abs',
+      color: '#d3c15f',
+      keypoints: ['left_shoulder', 'right_shoulder', 'right_hip', 'left_hip']
+    },
+    {
+      name: 'lower_abs',
+      color: '#d3c15f',
+      keypoints: ['left_hip', 'right_hip', 'right_knee', 'left_knee']
+    },
+    {
+      name: 'quad_sweep',
+      color: '#8c5fd3',
+      keypoints: ['left_hip', 'left_knee', 'left_ankle']
+    },
+    {
+      name: 'quad_sweep',
+      color: '#8c5fd3',
+      keypoints: ['right_hip', 'right_knee', 'right_ankle']
+    },
+    {
+      name: 'calves',
+      color: '#d35f9c',
+      keypoints: ['left_knee', 'left_ankle', 'left_foot_index']
+    },
+    {
+      name: 'calves',
+      color: '#d35f9c',
+      keypoints: ['right_knee', 'right_ankle', 'right_foot_index']
     }
   ]
 };
@@ -278,7 +439,10 @@ export function EnhancedMuscleOverlay({ poseData, poseType, width, height, class
     }
     
     return () => {
-      // No cleanup needed as we don't have a dispose method
+      // Clean up animation loop when component unmounts
+      if (visualizationRef.current) {
+        visualizationRef.current.dispose();
+      }
     };
   }, []);
   

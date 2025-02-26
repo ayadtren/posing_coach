@@ -66,7 +66,7 @@ export function CoachView({ poseType }: CoachViewProps = {}) {
   const [voiceEnabled, setVoiceEnabled] = useState(true);
   const [overlayEnabled, setOverlayEnabled] = useState(true);
   const [useEnhancedOverlay, setUseEnhancedOverlay] = useState(true);
-  const [useEnhancedMuscleVisualization, setUseEnhancedMuscleVisualization] = useState(false);
+  const [useEnhancedMuscleVisualization, setUseEnhancedMuscleVisualization] = useState(true);
   const [cameraReady, setCameraReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [physiqueData, setPhysiqueData] = useState<PhysiqueData | null>(null);
@@ -425,14 +425,80 @@ export function CoachView({ poseType }: CoachViewProps = {}) {
               // Clear previous drawing
               ctx.clearRect(0, 0, enhancedMuscleCanvasRef.current.width, enhancedMuscleCanvasRef.current.height);
               
-              // Define muscle groups
-              const muscleGroups: MuscleGroup[] = [
-                { name: 'chest', color: '#ff5500', keypoints: ['left_shoulder', 'right_shoulder', 'left_hip', 'right_hip'] },
-                { name: 'biceps', color: '#ff0066', keypoints: ['left_shoulder', 'left_elbow', 'left_wrist'] },
-                { name: 'triceps', color: '#cc00ff', keypoints: ['left_shoulder', 'left_elbow', 'left_wrist'] },
-                { name: 'abs', color: '#00aaff', keypoints: ['left_shoulder', 'right_shoulder', 'left_hip', 'right_hip'] },
-                { name: 'quads', color: '#33cc33', keypoints: ['left_hip', 'left_knee', 'left_ankle'] },
-              ];
+              // Define muscle groups based on pose type
+              let muscleGroups: MuscleGroup[] = [];
+              
+              switch (selectedPose) {
+                case PoseType.FRONT_DOUBLE_BICEPS:
+                  muscleGroups = [
+                    { name: 'biceps', color: '#ff0066', keypoints: ['left_shoulder', 'left_elbow', 'left_wrist'] },
+                    { name: 'biceps', color: '#ff0066', keypoints: ['right_shoulder', 'right_elbow', 'right_wrist'] },
+                    { name: 'chest', color: '#ff5500', keypoints: ['left_shoulder', 'right_shoulder', 'right_hip', 'left_hip'] },
+                    { name: 'shoulders', color: '#5f87d3', keypoints: ['left_shoulder', 'left_elbow', 'left_ear', 'neck'] },
+                    { name: 'shoulders', color: '#5f87d3', keypoints: ['right_shoulder', 'right_elbow', 'right_ear', 'neck'] },
+                    { name: 'abs', color: '#00aaff', keypoints: ['left_shoulder', 'right_shoulder', 'right_hip', 'left_hip'] },
+                    { name: 'quads', color: '#33cc33', keypoints: ['left_hip', 'left_knee', 'left_ankle'] },
+                    { name: 'quads', color: '#33cc33', keypoints: ['right_hip', 'right_knee', 'right_ankle'] },
+                    { name: 'forearms', color: '#ff0066', keypoints: ['left_elbow', 'left_wrist', 'left_index'] },
+                    { name: 'forearms', color: '#ff0066', keypoints: ['right_elbow', 'right_wrist', 'right_index'] },
+                  ];
+                  break;
+                case PoseType.BACK_DOUBLE_BICEPS:
+                  muscleGroups = [
+                    { name: 'back', color: '#ff5500', keypoints: ['left_shoulder', 'right_shoulder', 'right_hip', 'left_hip'] },
+                    { name: 'lats', color: '#ff5500', keypoints: ['left_shoulder', 'left_hip', 'left_knee'] },
+                    { name: 'lats', color: '#ff5500', keypoints: ['right_shoulder', 'right_hip', 'right_knee'] },
+                    { name: 'biceps', color: '#ff0066', keypoints: ['left_shoulder', 'left_elbow', 'left_wrist'] },
+                    { name: 'biceps', color: '#ff0066', keypoints: ['right_shoulder', 'right_elbow', 'right_wrist'] },
+                    { name: 'traps', color: '#ff5500', keypoints: ['left_shoulder', 'right_shoulder', 'neck'] },
+                    { name: 'glutes', color: '#33cc33', keypoints: ['left_hip', 'right_hip', 'right_knee', 'left_knee'] },
+                    { name: 'hamstrings', color: '#33cc33', keypoints: ['left_hip', 'left_knee', 'left_ankle'] },
+                    { name: 'hamstrings', color: '#33cc33', keypoints: ['right_hip', 'right_knee', 'right_ankle'] },
+                  ];
+                  break;
+                case PoseType.SIDE_CHEST:
+                  muscleGroups = [
+                    { name: 'chest', color: '#ff5500', keypoints: ['left_shoulder', 'right_shoulder', 'right_hip', 'left_hip'] },
+                    { name: 'shoulders', color: '#5f87d3', keypoints: ['left_shoulder', 'left_elbow', 'left_ear', 'neck'] },
+                    { name: 'biceps', color: '#ff0066', keypoints: ['left_shoulder', 'left_elbow', 'left_wrist'] },
+                    { name: 'triceps', color: '#ff0066', keypoints: ['right_shoulder', 'right_elbow', 'right_wrist'] },
+                    { name: 'quads', color: '#33cc33', keypoints: ['left_hip', 'left_knee', 'left_ankle'] },
+                    { name: 'calves', color: '#33cc33', keypoints: ['left_knee', 'left_ankle', 'left_foot_index'] },
+                  ];
+                  break;
+                case PoseType.SIDE_TRICEPS:
+                  muscleGroups = [
+                    { name: 'triceps', color: '#ff0066', keypoints: ['right_shoulder', 'right_elbow', 'right_wrist'] },
+                    { name: 'shoulders', color: '#5f87d3', keypoints: ['right_shoulder', 'right_elbow', 'right_ear', 'neck'] },
+                    { name: 'chest', color: '#ff5500', keypoints: ['left_shoulder', 'right_shoulder', 'right_hip', 'left_hip'] },
+                    { name: 'abs', color: '#00aaff', keypoints: ['left_hip', 'right_hip', 'right_shoulder', 'left_shoulder'] },
+                    { name: 'quads', color: '#33cc33', keypoints: ['right_hip', 'right_knee', 'right_ankle'] },
+                    { name: 'hamstrings', color: '#33cc33', keypoints: ['right_hip', 'right_knee', 'right_ankle'] },
+                    { name: 'calves', color: '#33cc33', keypoints: ['right_knee', 'right_ankle', 'right_foot_index'] },
+                  ];
+                  break;
+                case PoseType.ABDOMINAL_AND_THIGH:
+                  muscleGroups = [
+                    { name: 'abs', color: '#00aaff', keypoints: ['left_hip', 'right_hip', 'right_shoulder', 'left_shoulder'] },
+                    { name: 'obliques', color: '#00aaff', keypoints: ['left_shoulder', 'left_hip', 'left_knee'] },
+                    { name: 'obliques', color: '#00aaff', keypoints: ['right_shoulder', 'right_hip', 'right_knee'] },
+                    { name: 'quads', color: '#33cc33', keypoints: ['left_hip', 'left_knee', 'left_ankle'] },
+                    { name: 'quads', color: '#33cc33', keypoints: ['right_hip', 'right_knee', 'right_ankle'] },
+                    { name: 'adductors', color: '#33cc33', keypoints: ['left_hip', 'right_hip', 'right_knee', 'left_knee'] },
+                  ];
+                  break;
+                default: // FRONT_RELAXED
+                  muscleGroups = [
+                    { name: 'chest', color: '#ff5500', keypoints: ['left_shoulder', 'right_shoulder', 'right_hip', 'left_hip'] },
+                    { name: 'shoulders', color: '#5f87d3', keypoints: ['left_shoulder', 'left_elbow', 'left_ear', 'neck'] },
+                    { name: 'shoulders', color: '#5f87d3', keypoints: ['right_shoulder', 'right_elbow', 'right_ear', 'neck'] },
+                    { name: 'biceps', color: '#ff0066', keypoints: ['left_shoulder', 'left_elbow', 'left_wrist'] },
+                    { name: 'biceps', color: '#ff0066', keypoints: ['right_shoulder', 'right_elbow', 'right_wrist'] },
+                    { name: 'abs', color: '#00aaff', keypoints: ['left_hip', 'right_hip', 'right_shoulder', 'left_shoulder'] },
+                    { name: 'quads', color: '#33cc33', keypoints: ['left_hip', 'left_knee', 'left_ankle'] },
+                    { name: 'quads', color: '#33cc33', keypoints: ['right_hip', 'right_knee', 'right_ankle'] },
+                  ];
+              }
               
               // Draw the enhanced muscle visualization
               enhancedMuscleVisualizationRef.current.drawMuscleVisualization(poseData, muscleGroups);

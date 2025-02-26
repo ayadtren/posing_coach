@@ -2,7 +2,30 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Dumbbell, LineChart, Settings } from "lucide-react";
+import { Dumbbell, LineChart, Settings, Camera, Presentation } from "lucide-react";
+
+// Create a compare icon similar to what we used in Navigation
+const CompareIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="h-6 w-6 text-primary"
+  >
+    <path d="M10 3H6a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h4"></path>
+    <path d="M18 9h-3"></path>
+    <path d="M18 13h-3"></path>
+    <path d="M18 17h-3"></path>
+    <path d="M14 3v18"></path>
+    <path d="M14 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+  </svg>
+);
 
 export default function Home() {
   return (
@@ -36,14 +59,27 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-card rounded-lg p-6 shadow-sm">
               <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                <Dumbbell className="h-6 w-6 text-primary" />
+                <Camera className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">AI Posing Coach</h3>
+              <h3 className="text-xl font-semibold mb-2">DensePose Analysis</h3>
               <p className="text-muted-foreground">
-                Get real-time feedback on your posing technique with our AI-powered coach that analyzes your form and provides personalized guidance.
+                Advanced 3D body surface analysis with DensePose technology for detailed visualization of your posing form.
               </p>
               <Button asChild variant="link" className="mt-4 p-0">
-                <Link href="/ai-coach">Try AI Coach →</Link>
+                <Link href="/ai-coach/densepose">Try DensePose →</Link>
+              </Button>
+            </div>
+            
+            <div className="bg-card rounded-lg p-6 shadow-sm">
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                <CompareIcon />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Pose Comparison</h3>
+              <p className="text-muted-foreground">
+                Compare your poses with professional bodybuilders and get detailed feedback to improve your competition presentation.
+              </p>
+              <Button asChild variant="link" className="mt-4 p-0">
+                <Link href="/ai-coach/pose-comparison">Compare Poses →</Link>
               </Button>
             </div>
             
@@ -59,63 +95,93 @@ export default function Home() {
                 <Link href="/progress">View Progress →</Link>
               </Button>
             </div>
-            
-            <div className="bg-card rounded-lg p-6 shadow-sm">
-              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                <Settings className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Customizable Settings</h3>
-              <p className="text-muted-foreground">
-                Personalize your experience with customizable settings for notifications, appearance, and competition preferences.
+          </div>
+        </div>
+      </section>
+
+      {/* Pose Comparison Highlight Section */}
+      <section className="py-20 px-6 bg-muted">
+        <div className="container mx-auto max-w-5xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-bold mb-6">Professional Pose Comparison</h2>
+              <p className="text-muted-foreground mb-4">
+                Take your posing to the next level by comparing your form with professional bodybuilders. Our advanced comparison tool provides:
               </p>
-              <Button asChild variant="link" className="mt-4 p-0">
-                <Link href="/settings">Customize →</Link>
+              <ul className="space-y-2 mb-6">
+                <li className="flex items-start">
+                  <span className="mr-2 text-primary">✓</span>
+                  <span>Side-by-side visual comparison with pro bodybuilders</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="mr-2 text-primary">✓</span>
+                  <span>Detailed scoring on symmetry, alignment, and muscle activation</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="mr-2 text-primary">✓</span>
+                  <span>Actionable feedback on specific improvements</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="mr-2 text-primary">✓</span>
+                  <span>References from legendary bodybuilders from different eras</span>
+                </li>
+              </ul>
+              <Button asChild>
+                <Link href="/ai-coach/pose-comparison">Try Pose Comparison</Link>
               </Button>
+            </div>
+            <div className="bg-card rounded-lg p-4 shadow-md">
+              <div className="aspect-video bg-gradient-to-br from-gray-900 to-gray-800 rounded-md flex items-center justify-center text-white">
+                <div className="text-center p-8">
+                  <CompareIcon className="h-16 w-16 mx-auto mb-4 opacity-70" />
+                  <p className="text-lg font-medium">Pro Pose Comparison</p>
+                  <p className="text-sm opacity-70 mt-2">Compare your poses with the legends of bodybuilding</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* AI Coach Highlight Section */}
-      <section className="py-20 px-6 bg-muted">
+      <section className="py-20 px-6 bg-background">
         <div className="container mx-auto max-w-5xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className="bg-card rounded-lg p-4 shadow-md order-last md:order-first">
+              <div className="aspect-video bg-gradient-to-br from-gray-900 to-gray-800 rounded-md flex items-center justify-center text-white">
+                <div className="text-center p-8">
+                  <Dumbbell className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                  <p className="text-lg font-medium">DensePose Analysis</p>
+                  <p className="text-sm opacity-70 mt-2">Advanced 3D body surface visualization</p>
+                </div>
+              </div>
+            </div>
             <div>
-              <h2 className="text-3xl font-bold mb-6">AI-Powered Posing Coach</h2>
+              <h2 className="text-3xl font-bold mb-6">AI-Powered DensePose Analysis</h2>
               <p className="text-muted-foreground mb-4">
-                Our revolutionary AI coach uses computer vision technology to analyze your posing in real-time, providing instant feedback on:
+                Our revolutionary AI coach uses advanced DensePose technology to analyze your body surface in 3D, providing unparalleled insights into:
               </p>
               <ul className="space-y-2 mb-6">
                 <li className="flex items-start">
                   <span className="mr-2 text-primary">✓</span>
-                  <span>Body alignment and posture</span>
+                  <span>Body segment visualization and segmentation</span>
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2 text-primary">✓</span>
-                  <span>Symmetry between left and right sides</span>
+                  <span>UV mapping for detailed muscular analysis</span>
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2 text-primary">✓</span>
-                  <span>Muscle engagement and presentation</span>
+                  <span>Enhanced muscle activation visualization</span>
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2 text-primary">✓</span>
-                  <span>Pose-specific technique improvements</span>
+                  <span>Interactive body part selection and analysis</span>
                 </li>
               </ul>
               <Button asChild>
-                <Link href="/ai-coach">Try AI Coach Now</Link>
+                <Link href="/ai-coach/densepose">Try DensePose Analysis</Link>
               </Button>
-            </div>
-            <div className="bg-card rounded-lg p-4 shadow-md">
-              <div className="aspect-video bg-black rounded-md flex items-center justify-center text-white">
-                {/* This would be a video or image in production */}
-                <div className="text-center p-8">
-                  <Dumbbell className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                  <p className="text-lg font-medium">AI Coach Demo</p>
-                  <p className="text-sm opacity-70 mt-2">Video preview would appear here</p>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -133,14 +199,14 @@ export default function Home() {
               <Link href="/dashboard" className="text-muted-foreground hover:text-foreground">
                 Dashboard
               </Link>
-              <Link href="/ai-coach" className="text-muted-foreground hover:text-foreground">
-                AI Coach
+              <Link href="/ai-coach/densepose" className="text-muted-foreground hover:text-foreground">
+                DensePose
+              </Link>
+              <Link href="/ai-coach/pose-comparison" className="text-muted-foreground hover:text-foreground">
+                Pose Comparison
               </Link>
               <Link href="/progress" className="text-muted-foreground hover:text-foreground">
                 Progress
-              </Link>
-              <Link href="/settings" className="text-muted-foreground hover:text-foreground">
-                Settings
               </Link>
             </div>
           </div>

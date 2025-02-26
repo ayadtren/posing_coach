@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3334;
 app.use(cors());
 
 // Parse JSON request bodies
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));  // Increased size limit for image data
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -58,6 +58,25 @@ app.use('/api/llm/fallback', createProxyMiddleware({
   }
 }));
 
+// Proxy endpoint for DensePose service
+app.use('/api/densepose', createProxyMiddleware({
+  target: 'http://localhost:5000',
+  changeOrigin: true,
+  pathRewrite: {
+    '^/api/densepose': '/'
+  },
+  onProxyRes: function(proxyRes, req, res) {
+    // Add CORS headers to the response
+    proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+    proxyRes.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS';
+    proxyRes.headers['Access-Control-Allow-Headers'] = 'Content-Type';
+  },
+  onError: (err, req, res) => {
+    console.error('DensePose proxy error:', err);
+    res.status(500).json({ error: 'DensePose proxy error', message: err.message });
+  }
+}));
+
 // Fallback endpoint that returns a mock response
 app.post('/api/llm/mock', (req, res) => {
   const { prompt } = req.body;
@@ -76,6 +95,23 @@ app.post('/api/llm/mock', (req, res) => {
   }
   
   res.json({ text: response });
+});
+
+// DensePose status check endpoint
+app.get('/api/densepose/status', (req, res) => {
+  const axios = require('axios');
+  
+  axios.get('http://localhost:5000/health')
+    .then(response => {
+      res.json({ status: 'ok', message: 'DensePose service is running' });
+    })
+    .catch(error => {
+      res.status(503).json({ 
+        status: 'error', 
+        message: 'DensePose service is not available',
+        details: error.message
+      });
+    });
 });
 
 // Start the server
